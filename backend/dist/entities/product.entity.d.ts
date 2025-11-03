@@ -1,0 +1,37 @@
+import { Recommendation } from './recommendation.entity';
+import { Quiz } from './quiz.entity';
+export type ProductCategory = 'foundation' | 'mascara' | 'lipstick' | 'eyeliner' | 'eyeshadow' | 'blush' | 'bronzer' | 'concealer' | 'primer' | 'setting_powder' | 'setting_spray' | 'highlighter' | 'eyebrow' | 'eyelashes' | 'lip_liner' | 'lip_gloss' | 'nail_polish' | 'skincare' | 'makeup' | 'haircare' | 'fragrance' | 'bodycare' | 'suncare';
+export type ProductType = 'foundation' | 'mascara' | 'lipstick' | 'eyeliner' | 'eyeshadow' | 'blush' | 'bronzer' | 'concealer' | 'primer' | 'powder' | 'spray' | 'highlighter' | 'eyebrow' | 'lip_liner' | 'lip_gloss' | 'nail_polish' | 'cleanser' | 'moisturizer' | 'serum' | 'treatment';
+export type SkinTypeCompatibility = 'dry' | 'oily' | 'combination' | 'sensitive' | 'normal';
+export type BudgetRange = 'budget' | 'mid' | 'premium';
+export declare class Product {
+    id: string;
+    name: string;
+    brand: string;
+    category: string;
+    productCategory: string;
+    productType: string;
+    description: string;
+    imageUrl: string;
+    productLink: string;
+    ingredients: string[];
+    suitableSkinTypes: SkinTypeCompatibility[];
+    targetConcerns: string[];
+    tags: string[];
+    tagList: string[];
+    price: number;
+    budgetRange: string;
+    rating: number;
+    apiSourceId: string;
+    apiSource: 'makeup_api' | 'open_beauty_facts' | 'sephora' | 'ulta' | 'cosdna';
+    lastUpdated: Date;
+    isAvailable: boolean;
+    isNonComedogenic: boolean;
+    isHypoallergenic: boolean;
+    isOrganic: boolean;
+    isCrueltyFree: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+    recommendations: Recommendation[];
+    recommendedFor: Quiz[];
+}
