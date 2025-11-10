@@ -185,16 +185,32 @@ function App() {
             Welcome to Smart Skin Consultant
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Choose an option to get started with your personalized skin quiz
+            Get personalized recommendations or browse our curated makeup collection
           </p>
         </div>
 
         <div className="mt-8 space-y-4">
           <button
+            onClick={() => setCurrentState('products')}
+            className="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-green-600 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors"
+          >
+            🛍️ Browse Makeup Products (No Login Required)
+          </button>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300" />
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-gray-50 text-gray-500">Or continue with</span>
+            </div>
+          </div>
+
+          <button
             onClick={() => setCurrentState('login')}
             className="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
           >
-            Sign In
+            Sign In for Personalized Recommendations
           </button>
 
           <button

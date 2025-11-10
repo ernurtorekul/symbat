@@ -166,7 +166,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         type: 'enum',
-        enum: ['makeup_api', 'open_beauty_facts', 'sephora', 'ulta', 'cosdna'],
+        enum: ['makeup_api', 'open_beauty_facts', 'sephora', 'ulta', 'cosdna', 'manual_seed'],
         default: 'makeup_api',
         name: 'api_source'
     }),

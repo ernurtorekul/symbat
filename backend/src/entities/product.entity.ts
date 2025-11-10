@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { Recommendation } from './recommendation.entity';
 import { Quiz } from './quiz.entity';
 
@@ -25,7 +25,8 @@ export type ProductCategory =
   | 'haircare'
   | 'fragrance'
   | 'bodycare'
-  | 'suncare';
+  | 'suncare'
+  | 'makeup_remover';
 
 export type ProductType =
   | 'foundation'
@@ -47,7 +48,14 @@ export type ProductType =
   | 'cleanser'
   | 'moisturizer'
   | 'serum'
-  | 'treatment';
+  | 'treatment'
+  | 'micellar_water'
+  | 'cleansing_balm'
+  | 'cleansing_oil'
+  | 'makeup_remover_wipes'
+  | 'eye_makeup_remover'
+  | 'dual_phase_remover'
+  | 'accessory';
 
 export type SkinTypeCompatibility = 'dry' | 'oily' | 'combination' | 'sensitive' | 'normal';
 export type BudgetRange = 'budget' | 'mid' | 'premium';
@@ -185,11 +193,11 @@ export class Product {
 
   @Column({
     type: 'enum',
-    enum: ['makeup_api', 'open_beauty_facts', 'sephora', 'ulta', 'cosdna'],
+    enum: ['makeup_api', 'open_beauty_facts', 'sephora', 'ulta', 'cosdna', 'manual_seed'],
     default: 'makeup_api',
     name: 'api_source'
   })
-  apiSource: 'makeup_api' | 'open_beauty_facts' | 'sephora' | 'ulta' | 'cosdna';
+  apiSource: 'makeup_api' | 'open_beauty_facts' | 'sephora' | 'ulta' | 'cosdna' | 'manual_seed';
 
   @Column({
     type: 'timestamp',

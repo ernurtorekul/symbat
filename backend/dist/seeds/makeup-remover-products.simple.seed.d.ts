@@ -1,0 +1,22 @@
+declare const MAKEUP_REMOVAL_PRODUCTS: {
+    name: string;
+    brand: string;
+    productType: string;
+    price: number;
+    description: string;
+    imageUrl: string;
+    productLink: string;
+    rating: number;
+    ingredients: string[];
+    suitableSkinTypes: string[];
+    targetConcerns: string[];
+    tags: string[];
+    tagList: string[];
+    isOrganic: boolean;
+    isHypoallergenic: boolean;
+    isCrueltyFree: boolean;
+    isNonComedogenic: boolean;
+    budgetRange: string;
+}[];
+declare function seedMakeupRemovalProducts(): Promise<void>;
+export { seedMakeupRemovalProducts, MAKEUP_REMOVAL_PRODUCTS };

@@ -1,7 +1,7 @@
 import { Recommendation } from './recommendation.entity';
 import { Quiz } from './quiz.entity';
-export type ProductCategory = 'foundation' | 'mascara' | 'lipstick' | 'eyeliner' | 'eyeshadow' | 'blush' | 'bronzer' | 'concealer' | 'primer' | 'setting_powder' | 'setting_spray' | 'highlighter' | 'eyebrow' | 'eyelashes' | 'lip_liner' | 'lip_gloss' | 'nail_polish' | 'skincare' | 'makeup' | 'haircare' | 'fragrance' | 'bodycare' | 'suncare';
-export type ProductType = 'foundation' | 'mascara' | 'lipstick' | 'eyeliner' | 'eyeshadow' | 'blush' | 'bronzer' | 'concealer' | 'primer' | 'powder' | 'spray' | 'highlighter' | 'eyebrow' | 'lip_liner' | 'lip_gloss' | 'nail_polish' | 'cleanser' | 'moisturizer' | 'serum' | 'treatment';
+export type ProductCategory = 'foundation' | 'mascara' | 'lipstick' | 'eyeliner' | 'eyeshadow' | 'blush' | 'bronzer' | 'concealer' | 'primer' | 'setting_powder' | 'setting_spray' | 'highlighter' | 'eyebrow' | 'eyelashes' | 'lip_liner' | 'lip_gloss' | 'nail_polish' | 'skincare' | 'makeup' | 'haircare' | 'fragrance' | 'bodycare' | 'suncare' | 'makeup_remover';
+export type ProductType = 'foundation' | 'mascara' | 'lipstick' | 'eyeliner' | 'eyeshadow' | 'blush' | 'bronzer' | 'concealer' | 'primer' | 'powder' | 'spray' | 'highlighter' | 'eyebrow' | 'lip_liner' | 'lip_gloss' | 'nail_polish' | 'cleanser' | 'moisturizer' | 'serum' | 'treatment' | 'micellar_water' | 'cleansing_balm' | 'cleansing_oil' | 'makeup_remover_wipes' | 'eye_makeup_remover' | 'dual_phase_remover' | 'accessory';
 export type SkinTypeCompatibility = 'dry' | 'oily' | 'combination' | 'sensitive' | 'normal';
 export type BudgetRange = 'budget' | 'mid' | 'premium';
 export declare class Product {
@@ -23,7 +23,7 @@ export declare class Product {
     budgetRange: string;
     rating: number;
     apiSourceId: string;
-    apiSource: 'makeup_api' | 'open_beauty_facts' | 'sephora' | 'ulta' | 'cosdna';
+    apiSource: 'makeup_api' | 'open_beauty_facts' | 'sephora' | 'ulta' | 'cosdna' | 'manual_seed';
     lastUpdated: Date;
     isAvailable: boolean;
     isNonComedogenic: boolean;

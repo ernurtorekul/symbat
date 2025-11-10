@@ -18,7 +18,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ productId, onBack }) => {
   const fetchProduct = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:3000/products/${productId}`);
+      const response = await fetch(`http://localhost:3001/products/${productId}`);
       if (response.ok) {
         const data = await response.json();
         setProduct(data);

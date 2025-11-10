@@ -14,10 +14,11 @@ const ProductPage: React.FC<ProductPageProps> = ({ quizData, onViewProductDetail
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedBudget, setSelectedBudget] = useState('all');
-  const [viewMode, setViewMode] = useState<'all' | 'personal'>(quizData?.recommendedProducts ? 'personal' : 'all');
+  const [viewMode, setViewMode] = useState<'all' | 'personal'>('all');
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [showChatBot, setShowChatBot] = useState(false);
 
+  
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -25,11 +26,37 @@ const ProductPage: React.FC<ProductPageProps> = ({ quizData, onViewProductDetail
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:3000/products/search?q=makeup');
-      if (response.ok) {
-        const data = await response.json();
-        setProducts(data.slice(0, 50)); // Limit to first 50 products
+
+      // Fetch both general makeup products and makeup removers
+      const [makeupResponse, removerResponse] = await Promise.all([
+        fetch('http://localhost:3001/products/search?q=makeup'),
+        fetch('http://localhost:3001/products/category/makeup_remover')
+      ]);
+
+      let makeupProducts = [];
+      let removerProducts = [];
+
+      try {
+        makeupProducts = makeupResponse.ok ? await makeupResponse.json() : [];
+      } catch (e) {
+        console.error('Error parsing makeup response:', e);
+        makeupProducts = [];
       }
+
+      try {
+        removerProducts = removerResponse.ok ? await removerResponse.json() : [];
+      } catch (e) {
+        console.error('Error parsing remover response:', e);
+        removerProducts = [];
+      }
+
+      // Combine products and remove duplicates
+      const allProducts = [...makeupProducts, ...removerProducts];
+      const uniqueProducts = allProducts.filter((product, index, self) =>
+        index === self.findIndex((p) => p.id === product.id)
+      );
+
+      setProducts(uniqueProducts.slice(0, 200)); // Limit to first 200 products
     } catch (error) {
       console.error('Error fetching products:', error);
     } finally {
@@ -54,6 +81,8 @@ const ProductPage: React.FC<ProductPageProps> = ({ quizData, onViewProductDetail
     return matchesSearch && matchesCategory && matchesBudget && matchesViewMode;
   });
 
+  
+  
   // Debug log
   if (viewMode === 'personal') {
     console.log('=== PERSONAL RECOMMENDATIONS DEBUG ===');
@@ -82,7 +111,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ quizData, onViewProductDetail
     setSelectedProduct(null);
   };
 
-  const categories = ['all', ...Array.from(new Set(products.map(p => p.productCategory).filter(Boolean)))];
+  const categories = ['all', ...Array.from(new Set([...products.map(p => p.productCategory).filter(Boolean), 'makeup_remover']))];
   const budgetRanges = ['all', 'budget', 'mid', 'premium'];
 
   // If a product is selected, show product detail
@@ -118,7 +147,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ quizData, onViewProductDetail
       {/* Header */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Product Catalog</h1>
-        <p className="text-gray-600">Discover makeup products personalized for you</p>
+        <p className="text-gray-600">Explore our curated collection of makeup and skincare products</p>
 
         {/* View Mode Toggle */}
         {quizData && (
@@ -180,11 +209,29 @@ const ProductPage: React.FC<ProductPageProps> = ({ quizData, onViewProductDetail
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              {categories.map(category => (
-                <option key={category} value={category}>
-                  {category === 'all' ? 'All Categories' : category?.charAt(0).toUpperCase() + category?.slice(1)}
-                </option>
-              ))}
+              {categories.map(category => {
+                const displayNames: { [key: string]: string } = {
+                  'all': 'All Categories',
+                  'makeup_remover': 'Makeup Removers',
+                  'foundation': 'Foundation',
+                  'mascara': 'Mascara',
+                  'lipstick': 'Lipstick',
+                  'eyeliner': 'Eyeliner',
+                  'eyeshadow': 'Eyeshadow',
+                  'blush': 'Blush',
+                  'bronzer': 'Bronzer',
+                  'concealer': 'Concealer',
+                  'primer': 'Primer',
+                  'highlighter': 'Highlighter',
+                  'powder': 'Setting Powder',
+                  'skincare': 'Skincare'
+                };
+                return (
+                  <option key={category} value={category}>
+                    {displayNames[category] || category?.charAt(0).toUpperCase() + category?.slice(1)}
+                  </option>
+                );
+              })}
             </select>
           </div>
 

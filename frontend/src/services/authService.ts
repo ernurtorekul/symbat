@@ -18,7 +18,7 @@ export interface AuthResponse {
 }
 
 class AuthService {
-  private baseURL = 'http://localhost:3000';
+  private baseURL = 'http://localhost:3001';
 
   private async makeRequest(endpoint: string, options: RequestInit = {}): Promise<Response> {
     const headers = {
